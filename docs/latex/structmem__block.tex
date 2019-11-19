@@ -1,0 +1,76 @@
+\hypertarget{structmem__block}{}\doxysection{mem\+\_\+block Struct Reference}
+\label{structmem__block}\index{mem\_block@{mem\_block}}
+
+
+{\ttfamily \#include $<$allocator.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long \mbox{\hyperlink{structmem__block_ad42de1b76cc0aa74440d25db29ac647d}{alloc\+\_\+id}}
+\item 
+char \mbox{\hyperlink{structmem__block_a4b0bf81628ebd136cc6d4a33c2dc1fcf}{name}} \mbox{[}32\mbox{]}
+\item 
+size\+\_\+t \mbox{\hyperlink{structmem__block_a5ff4ee5dcd970bbc4951eb108c5eec4b}{size}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structmem__block_a9584a3091a545d69554c90af09a537f9}{usage}}
+\item 
+struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}} $\ast$ \mbox{\hyperlink{structmem__block_a13488653e52b16c20a2236a540e2f0cc}{region\+\_\+start}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structmem__block_a9363cab5adbbfa3e4655a226262be3f9}{region\+\_\+size}}
+\item 
+struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}} $\ast$ \mbox{\hyperlink{structmem__block_a6bc667eb00ed1bb2d18b4074a69d7cf4}{next}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines metadata structure for both memory \textquotesingle{}regions\textquotesingle{} and \textquotesingle{}blocks.\textquotesingle{} This structure is prefixed before each allocation\textquotesingle{}s data area. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structmem__block_ad42de1b76cc0aa74440d25db29ac647d}\label{structmem__block_ad42de1b76cc0aa74440d25db29ac647d}} 
+\index{mem\_block@{mem\_block}!alloc\_id@{alloc\_id}}
+\index{alloc\_id@{alloc\_id}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{alloc\_id}{alloc\_id}}
+{\footnotesize\ttfamily unsigned long mem\+\_\+block\+::alloc\+\_\+id}
+
+Each allocation is given a unique ID number. If an allocation is split in two, then the resulting new block will be given a new ID. \mbox{\Hypertarget{structmem__block_a4b0bf81628ebd136cc6d4a33c2dc1fcf}\label{structmem__block_a4b0bf81628ebd136cc6d4a33c2dc1fcf}} 
+\index{mem\_block@{mem\_block}!name@{name}}
+\index{name@{name}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily char mem\+\_\+block\+::name\mbox{[}32\mbox{]}}
+
+The name of this memory block. If the user doesn\textquotesingle{}t specify a name for the block, it should be auto-\/generated based on the allocation ID. \mbox{\Hypertarget{structmem__block_a6bc667eb00ed1bb2d18b4074a69d7cf4}\label{structmem__block_a6bc667eb00ed1bb2d18b4074a69d7cf4}} 
+\index{mem\_block@{mem\_block}!next@{next}}
+\index{next@{next}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}}$\ast$ mem\+\_\+block\+::next}
+
+Next block in the chain \mbox{\Hypertarget{structmem__block_a9363cab5adbbfa3e4655a226262be3f9}\label{structmem__block_a9363cab5adbbfa3e4655a226262be3f9}} 
+\index{mem\_block@{mem\_block}!region\_size@{region\_size}}
+\index{region\_size@{region\_size}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{region\_size}{region\_size}}
+{\footnotesize\ttfamily size\+\_\+t mem\+\_\+block\+::region\+\_\+size}
+
+If this block is the beginning of a mapped memory region, the region\+\_\+size member indicates the size of the mapping. In subsequent (split) blocks, this is undefined. \mbox{\Hypertarget{structmem__block_a13488653e52b16c20a2236a540e2f0cc}\label{structmem__block_a13488653e52b16c20a2236a540e2f0cc}} 
+\index{mem\_block@{mem\_block}!region\_start@{region\_start}}
+\index{region\_start@{region\_start}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{region\_start}{region\_start}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}}$\ast$ mem\+\_\+block\+::region\+\_\+start}
+
+Pointer to the start of the mapped memory region. This simplifies the process of finding where memory mappings begin. \mbox{\Hypertarget{structmem__block_a5ff4ee5dcd970bbc4951eb108c5eec4b}\label{structmem__block_a5ff4ee5dcd970bbc4951eb108c5eec4b}} 
+\index{mem\_block@{mem\_block}!size@{size}}
+\index{size@{size}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily size\+\_\+t mem\+\_\+block\+::size}
+
+Size of the memory region \mbox{\Hypertarget{structmem__block_a9584a3091a545d69554c90af09a537f9}\label{structmem__block_a9584a3091a545d69554c90af09a537f9}} 
+\index{mem\_block@{mem\_block}!usage@{usage}}
+\index{usage@{usage}!mem\_block@{mem\_block}}
+\doxysubsubsection{\texorpdfstring{usage}{usage}}
+{\footnotesize\ttfamily size\+\_\+t mem\+\_\+block\+::usage}
+
+Space used; if usage == 0, then the block has been freed. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{allocator_8h}{allocator.\+h}}\end{DoxyCompactItemize}

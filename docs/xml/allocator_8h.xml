@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="allocator_8h" kind="file" language="C++">
+    <compoundname>allocator.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">pthread.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includedby refid="allocator_8c" local="yes">allocator.c</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1">
+        <label>allocator.h</label>
+        <link refid="allocator_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stddef.h</label>
+      </node>
+      <node id="3">
+        <label>pthread.h</label>
+      </node>
+      <node id="5">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>allocator.c</label>
+        <link refid="allocator_8c"/>
+      </node>
+      <node id="1">
+        <label>allocator.h</label>
+        <link refid="allocator_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structmem__block" prot="public">mem_block</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="allocator_8h_1af53cbb9b42037c8fdbbd933b88633b84" prot="public" static="yes" mutable="no">
+        <type>struct <ref refid="structmem__block" kindref="compound">mem_block</ref> *</type>
+        <definition>struct mem_block* g_head</definition>
+        <argsstring></argsstring>
+        <name>g_head</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Start (head) of our linked list </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="67" column="23" bodyfile="allocator.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="allocator_8h_1a3573b9ffe57e009ac9af92b356d9a440" prot="public" static="yes" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long g_allocations</definition>
+        <argsstring></argsstring>
+        <name>g_allocations</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocation counter </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="68" column="22" bodyfile="allocator.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="allocator_8h_1a6067dc93cfee72cb62500c25f151b4ba" prot="public" static="yes" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t g_heap_lock</definition>
+        <argsstring></argsstring>
+        <name>g_heap_lock</name>
+        <initializer>= 
+        PTHREAD_MUTEX_INITIALIZER</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Mutex that protects memory operations </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="69" column="24" bodyfile="allocator.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="allocator_8h_1a16e4f54f08fa2ef1574b413d64a94d44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_memory</definition>
+        <argsstring>(void)</argsstring>
+        <name>print_memory</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints out the current memory state, including both the regions and blocks. Entries are printed in order, so there is an implied link from the topmost entry to the next, and so on. The data is written into standard output stream. <simplesect kind="see"><para><ref refid="allocator_8c_1a22a50f56d0ca25cf15ae958e096a9776" kindref="member">write_memory</ref> for more generic version. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="16" column="6" bodyfile="allocator.c" bodystart="133" bodyend="142" declfile="allocator.h" declline="16" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="allocator_8h_1a22a50f56d0ca25cf15ae958e096a9776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void write_memory</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>write_memory</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints out the current memory state, including both the regions and blocks. Entries are printed in order, so there is an implied link from the topmost entry to the next, and so on. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- output stream to print the memory state to. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="17" column="6" bodyfile="allocator.c" bodystart="89" bodyend="124" declfile="allocator.h" declline="17" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="allocator_8h_1a7ac38fce3243a7dcf448301ee9ffd392" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* malloc</definition>
+        <argsstring>(size_t size)</argsstring>
+        <name>malloc</name>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocates an unnamed memory block with a given size. Thread-safe. <simplesect kind="see"><para><ref refid="allocator_8c_1ab2b5b629f85cbc720a47bd7f0c658ceb" kindref="member">malloc_unsafe</ref> for the implementation of the allocation itself. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- size of the memory segment to allocate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to the first byte of data inside the allocated segment. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="20" column="6" bodyfile="allocator.c" bodystart="396" bodyend="413" declfile="allocator.h" declline="20" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="allocator_8h_1afbedc913aa4651b3c3b4b3aecd9b4711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void free</definition>
+        <argsstring>(void *ptr)</argsstring>
+        <name>free</name>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Deallocates a memory block by the data pointer given. Thread-safe. <simplesect kind="see"><para><ref refid="allocator_8c_1af18a93fc4ddd62a18abeb9af2cf64523" kindref="member">free_unsafe</ref> for the implementation of the deallocation itself. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- data pointer of the block to free. If NULL, nothing is done. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="21" column="6" bodyfile="allocator.c" bodystart="535" bodyend="552" declfile="allocator.h" declline="21" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="allocator_8h_1a62b7798461bd461da64c5f9d35feddf7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* calloc</definition>
+        <argsstring>(size_t nmemb, size_t size)</argsstring>
+        <name>calloc</name>
+        <param>
+          <type>size_t</type>
+          <declname>nmemb</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocates an unnamed memory block with some amount of elements of given size each. Allocated data memory is filled with zero bytes. Thread-safe. <simplesect kind="see"><para><ref refid="allocator_8c_1ab2b5b629f85cbc720a47bd7f0c658ceb" kindref="member">malloc_unsafe</ref> for the implementation of the allocation itself. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nmemb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- count of elements to allocate memory for. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- size of the each element. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to the first byte of data inside the allocated segment. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="22" column="6" bodyfile="allocator.c" bodystart="563" bodyend="581" declfile="allocator.h" declline="22" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="allocator_8h_1a1a6b5e8d2f1c37e5b43e4345586075be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* realloc</definition>
+        <argsstring>(void *ptr, size_t size)</argsstring>
+        <name>realloc</name>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Changes the size of the given allocated block to the new one. If the given block is NULL, equal to malloc_unsafe(size). If the new size is 0, equal to free_unsafe(ptr). Thread-safe. <simplesect kind="see"><para><ref refid="allocator_8c_1aca9a8e56fed508bfcebeae1ad1e4c54a" kindref="member">realloc_unsafe</ref> for for implementation of the reallocation itself. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- data pointer of the existing block. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- new size for the block. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to the first byte of data inside the resized segment. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="23" column="6" bodyfile="allocator.c" bodystart="653" bodyend="668" declfile="allocator.h" declline="23" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Function prototypes and globals for our memory allocator implementation. </para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="7"><highlight class="preprocessor">#ifndef<sp/>ALLOCATOR_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ALLOCATOR_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pthread.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--<sp/>Helper<sp/>functions<sp/>--<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="allocator_8h_1a16e4f54f08fa2ef1574b413d64a94d44" kindref="member">print_memory</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="allocator_8h_1a22a50f56d0ca25cf15ae958e096a9776" kindref="member">write_memory</ref>(FILE<sp/>*fp);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--<sp/>C<sp/>Memory<sp/>API<sp/>functions<sp/>--<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="allocator_8h_1a7ac38fce3243a7dcf448301ee9ffd392" kindref="member">malloc</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="allocator_8h_1afbedc913aa4651b3c3b4b3aecd9b4711" kindref="member">free</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ptr);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="allocator_8h_1a62b7798461bd461da64c5f9d35feddf7" kindref="member">calloc</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nmemb,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="allocator_8h_1a1a6b5e8d2f1c37e5b43e4345586075be" kindref="member">realloc</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ptr,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--<sp/>Data<sp/>Structures<sp/>and<sp/>Globals<sp/>--<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="structmem__block" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structmem__block" kindref="compound">mem_block</ref><sp/>{</highlight></codeline>
+<codeline lineno="36" refid="structmem__block_1ad42de1b76cc0aa74440d25db29ac647d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1ad42de1b76cc0aa74440d25db29ac647d" kindref="member">alloc_id</ref>;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="structmem__block_1a4b0bf81628ebd136cc6d4a33c2dc1fcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a4b0bf81628ebd136cc6d4a33c2dc1fcf" kindref="member">name</ref>[32];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="structmem__block_1a9584a3091a545d69554c90af09a537f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a9584a3091a545d69554c90af09a537f9" kindref="member">usage</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="structmem__block_1a13488653e52b16c20a2236a540e2f0cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structmem__block" kindref="compound">mem_block</ref><sp/>*<ref refid="structmem__block_1a13488653e52b16c20a2236a540e2f0cc" kindref="member">region_start</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="structmem__block_1a9363cab5adbbfa3e4655a226262be3f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structmem__block_1a9363cab5adbbfa3e4655a226262be3f9" kindref="member">region_size</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="structmem__block_1a6bc667eb00ed1bb2d18b4074a69d7cf4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structmem__block" kindref="compound">mem_block</ref><sp/>*<ref refid="structmem__block_1a6bc667eb00ed1bb2d18b4074a69d7cf4" kindref="member">next</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structmem__block" kindref="compound">mem_block</ref><sp/>*g_head<sp/>=<sp/>NULL;<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>g_allocations<sp/>=<sp/>0;<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>pthread_mutex_t<sp/>g_heap_lock<sp/>=<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PTHREAD_MUTEX_INITIALIZER;<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="allocator.h"/>
+  </compounddef>
+</doxygen>

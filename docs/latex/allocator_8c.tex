@@ -1,0 +1,329 @@
+\hypertarget{allocator_8c}{}\doxysection{allocator.\+c File Reference}
+\label{allocator_8c}\index{allocator.c@{allocator.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}debug.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{allocator_8c_a17861f56ed66fb6e128e6dd6448d5e6d}{write\+\_\+pointer}} (F\+I\+LE $\ast$fp, void $\ast$ptr)
+\item 
+void \mbox{\hyperlink{allocator_8c_a04e781f71c64ac20ac2fe49e293b5999}{write\+\_\+unsigned}} (F\+I\+LE $\ast$fp, size\+\_\+t num)
+\item 
+void \mbox{\hyperlink{allocator_8c_a22a50f56d0ca25cf15ae958e096a9776}{write\+\_\+memory}} (F\+I\+LE $\ast$fp)
+\item 
+void \mbox{\hyperlink{allocator_8c_a16e4f54f08fa2ef1574b413d64a94d44}{print\+\_\+memory}} (void)
+\item 
+struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}} $\ast$ \mbox{\hyperlink{allocator_8c_a149e8f74b9bbf0cb7ea37bf583e53482}{first\+\_\+fit}} (size\+\_\+t size)
+\item 
+struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}} $\ast$ \mbox{\hyperlink{allocator_8c_aaaadbfd855728c6a6d0b62acb8b8cd54}{best\+\_\+fit}} (size\+\_\+t size)
+\item 
+struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}} $\ast$ \mbox{\hyperlink{allocator_8c_ae71009595b7d4f5746e742a7707c8935}{worst\+\_\+fit}} (size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_a512132f6d325316860cc6ac6bf0a366c}{reuse}} (size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_aaee87550bee6efe7ccc95c0c9b5e8c7a}{expand\+\_\+heap}} (size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}{malloc\+\_\+unsafe}} (size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_a7ac38fce3243a7dcf448301ee9ffd392}{malloc}} (size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_abea17750c4391c1e6a8d512bc73ec6eb}{malloc\+\_\+name\+\_\+unsafe}} (size\+\_\+t size, char $\ast$name)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_aec0d19cf0c75e35fef6e0c1248dc781e}{malloc\+\_\+name}} (size\+\_\+t size, char $\ast$name)
+\item 
+void \mbox{\hyperlink{allocator_8c_af18a93fc4ddd62a18abeb9af2cf64523}{free\+\_\+unsafe}} (void $\ast$ptr)
+\item 
+void \mbox{\hyperlink{allocator_8c_afbedc913aa4651b3c3b4b3aecd9b4711}{free}} (void $\ast$ptr)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_a62b7798461bd461da64c5f9d35feddf7}{calloc}} (size\+\_\+t nmemb, size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_aca9a8e56fed508bfcebeae1ad1e4c54a}{realloc\+\_\+unsafe}} (void $\ast$ptr, size\+\_\+t size)
+\item 
+void $\ast$ \mbox{\hyperlink{allocator_8c_a1a6b5e8d2f1c37e5b43e4345586075be}{realloc}} (void $\ast$ptr, size\+\_\+t size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Explores memory management at the C runtime level.
+
+To use (one specific command)\+: L\+D\+\_\+\+P\+R\+E\+L\+O\+AD=/allocator.so command (\textquotesingle{}command\textquotesingle{} will run with your allocator)
+
+To use (all following commands)\+: export L\+D\+\_\+\+P\+R\+E\+L\+O\+AD=/allocator.so (Everything after this point will use your custom allocator -- be careful!) 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{allocator_8c_aaaadbfd855728c6a6d0b62acb8b8cd54}\label{allocator_8c_aaaadbfd855728c6a6d0b62acb8b8cd54}} 
+\index{allocator.c@{allocator.c}!best\_fit@{best\_fit}}
+\index{best\_fit@{best\_fit}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{best\_fit()}{best\_fit()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}}$\ast$ best\+\_\+fit (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Finds the block that can be used as is (or split) to hold the new block of some size. Uses Best-\/\+Fit memory allocation (valid block with the least extra space is chosen). 
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ full size of the block which is allocated (including header). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the header of the block that have enough free space, or N\+U\+LL if not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_a62b7798461bd461da64c5f9d35feddf7}\label{allocator_8c_a62b7798461bd461da64c5f9d35feddf7}} 
+\index{allocator.c@{allocator.c}!calloc@{calloc}}
+\index{calloc@{calloc}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{calloc()}{calloc()}}
+{\footnotesize\ttfamily void$\ast$ calloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{nmemb,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Allocates an unnamed memory block with some amount of elements of given size each. Allocated data memory is filled with zero bytes. Thread-\/safe. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}{malloc\+\_\+unsafe}} for the implementation of the allocation itself. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em nmemb} & -\/ count of elements to allocate memory for. \\
+\hline
+{\em size} & -\/ size of the each element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the allocated segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_aaee87550bee6efe7ccc95c0c9b5e8c7a}\label{allocator_8c_aaee87550bee6efe7ccc95c0c9b5e8c7a}} 
+\index{allocator.c@{allocator.c}!expand\_heap@{expand\_heap}}
+\index{expand\_heap@{expand\_heap}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{expand\_heap()}{expand\_heap()}}
+{\footnotesize\ttfamily void$\ast$ expand\+\_\+heap (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Maps a new region and creates a block in it. 
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ full size of the block which is allocated (including header). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the block which is a single block for newly allocated region. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_a149e8f74b9bbf0cb7ea37bf583e53482}\label{allocator_8c_a149e8f74b9bbf0cb7ea37bf583e53482}} 
+\index{allocator.c@{allocator.c}!first\_fit@{first\_fit}}
+\index{first\_fit@{first\_fit}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{first\_fit()}{first\_fit()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}}$\ast$ first\+\_\+fit (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Finds the block that can be used as or split to hold the new block Uses First-\/\+Fit memory allocation (first valid block is chosen). 
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ full size of the block which is allocated (including header). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the header of the block that has enough free space, or N\+U\+LL if not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_afbedc913aa4651b3c3b4b3aecd9b4711}\label{allocator_8c_afbedc913aa4651b3c3b4b3aecd9b4711}} 
+\index{allocator.c@{allocator.c}!free@{free}}
+\index{free@{free}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{free()}{free()}}
+{\footnotesize\ttfamily void free (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+Deallocates a memory block by the data pointer given. Thread-\/safe. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_af18a93fc4ddd62a18abeb9af2cf64523}{free\+\_\+unsafe}} for the implementation of the deallocation itself. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & -\/ data pointer of the block to free. If N\+U\+LL, nothing is done. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{allocator_8c_af18a93fc4ddd62a18abeb9af2cf64523}\label{allocator_8c_af18a93fc4ddd62a18abeb9af2cf64523}} 
+\index{allocator.c@{allocator.c}!free\_unsafe@{free\_unsafe}}
+\index{free\_unsafe@{free\_unsafe}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{free\_unsafe()}{free\_unsafe()}}
+{\footnotesize\ttfamily void free\+\_\+unsafe (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+Deallocates a memory block by the data pointer given. 
+\begin{DoxyParams}{Parameters}
+{\em ptr} & -\/ data pointer of the block to free. If N\+U\+LL, nothing is done. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{allocator_8c_a7ac38fce3243a7dcf448301ee9ffd392}\label{allocator_8c_a7ac38fce3243a7dcf448301ee9ffd392}} 
+\index{allocator.c@{allocator.c}!malloc@{malloc}}
+\index{malloc@{malloc}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{malloc()}{malloc()}}
+{\footnotesize\ttfamily void$\ast$ malloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Allocates an unnamed memory block with a given size. Thread-\/safe. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}{malloc\+\_\+unsafe}} for the implementation of the allocation itself. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ size of the memory segment to allocate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the allocated segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_aec0d19cf0c75e35fef6e0c1248dc781e}\label{allocator_8c_aec0d19cf0c75e35fef6e0c1248dc781e}} 
+\index{allocator.c@{allocator.c}!malloc\_name@{malloc\_name}}
+\index{malloc\_name@{malloc\_name}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{malloc\_name()}{malloc\_name()}}
+{\footnotesize\ttfamily void$\ast$ malloc\+\_\+name (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Allocates a named memory block with a given size. Thread-\/safe. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_abea17750c4391c1e6a8d512bc73ec6eb}{malloc\+\_\+name\+\_\+unsafe}} for the implementation of the allocation itself. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ size of the memory segment to allocate. \\
+\hline
+{\em name} & -\/ name of the block. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the allocated segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_abea17750c4391c1e6a8d512bc73ec6eb}\label{allocator_8c_abea17750c4391c1e6a8d512bc73ec6eb}} 
+\index{allocator.c@{allocator.c}!malloc\_name\_unsafe@{malloc\_name\_unsafe}}
+\index{malloc\_name\_unsafe@{malloc\_name\_unsafe}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{malloc\_name\_unsafe()}{malloc\_name\_unsafe()}}
+{\footnotesize\ttfamily void$\ast$ malloc\+\_\+name\+\_\+unsafe (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Allocates a named memory block with a given size. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}{malloc\+\_\+unsafe}} for the implementation of the allocation itself. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ size of the memory segment to allocate. \\
+\hline
+{\em name} & -\/ name of the block. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the allocated segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}\label{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}} 
+\index{allocator.c@{allocator.c}!malloc\_unsafe@{malloc\_unsafe}}
+\index{malloc\_unsafe@{malloc\_unsafe}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{malloc\_unsafe()}{malloc\_unsafe()}}
+{\footnotesize\ttfamily void$\ast$ malloc\+\_\+unsafe (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Allocates an unnamed memory block with a given size. If environment variable A\+L\+L\+O\+C\+A\+T\+O\+R\+\_\+\+S\+C\+R\+I\+B\+B\+LE is set to \char`\"{}1\char`\"{} then allocated data memory is filled with 0x\+AA bytes. 
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ size of the memory segment to allocate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the allocated segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_a16e4f54f08fa2ef1574b413d64a94d44}\label{allocator_8c_a16e4f54f08fa2ef1574b413d64a94d44}} 
+\index{allocator.c@{allocator.c}!print\_memory@{print\_memory}}
+\index{print\_memory@{print\_memory}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{print\_memory()}{print\_memory()}}
+{\footnotesize\ttfamily void print\+\_\+memory (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Prints out the current memory state, including both the regions and blocks. Entries are printed in order, so there is an implied link from the topmost entry to the next, and so on. The data is written into standard output stream. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_a22a50f56d0ca25cf15ae958e096a9776}{write\+\_\+memory}} for more generic version. 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{allocator_8c_a1a6b5e8d2f1c37e5b43e4345586075be}\label{allocator_8c_a1a6b5e8d2f1c37e5b43e4345586075be}} 
+\index{allocator.c@{allocator.c}!realloc@{realloc}}
+\index{realloc@{realloc}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{realloc()}{realloc()}}
+{\footnotesize\ttfamily void$\ast$ realloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Changes the size of the given allocated block to the new one. If the given block is N\+U\+LL, equal to malloc\+\_\+unsafe(size). If the new size is 0, equal to free\+\_\+unsafe(ptr). Thread-\/safe. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_aca9a8e56fed508bfcebeae1ad1e4c54a}{realloc\+\_\+unsafe}} for for implementation of the reallocation itself. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & -\/ data pointer of the existing block. \\
+\hline
+{\em size} & -\/ new size for the block. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the resized segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_aca9a8e56fed508bfcebeae1ad1e4c54a}\label{allocator_8c_aca9a8e56fed508bfcebeae1ad1e4c54a}} 
+\index{allocator.c@{allocator.c}!realloc\_unsafe@{realloc\_unsafe}}
+\index{realloc\_unsafe@{realloc\_unsafe}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{realloc\_unsafe()}{realloc\_unsafe()}}
+{\footnotesize\ttfamily void$\ast$ realloc\+\_\+unsafe (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Changes the size of the given allocated block to the new one. If the given block is N\+U\+LL, equal to malloc\+\_\+unsafe(size). If the new size is 0, equal to free\+\_\+unsafe(ptr). \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{allocator_8c_ab2b5b629f85cbc720a47bd7f0c658ceb}{malloc\+\_\+unsafe}} for the implementation of the allocation. 
+
+\mbox{\hyperlink{allocator_8c_af18a93fc4ddd62a18abeb9af2cf64523}{free\+\_\+unsafe}} for the implementation of the deallocation. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & -\/ data pointer of the existing block. \\
+\hline
+{\em size} & -\/ new size for the block. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the first byte of data inside the resized segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_a512132f6d325316860cc6ac6bf0a366c}\label{allocator_8c_a512132f6d325316860cc6ac6bf0a366c}} 
+\index{allocator.c@{allocator.c}!reuse@{reuse}}
+\index{reuse@{reuse}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{reuse()}{reuse()}}
+{\footnotesize\ttfamily void$\ast$ reuse (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Finds the block that can be used as is (or split) to hold the new block of some size. Determines memory allocation algorithm based on the A\+L\+L\+O\+C\+A\+T\+O\+R\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM environment variable. Default is First-\/\+Fit. 
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ full size of the block which is allocated (including header). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the header of the block that have enough free space, or N\+U\+LL if not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_ae71009595b7d4f5746e742a7707c8935}\label{allocator_8c_ae71009595b7d4f5746e742a7707c8935}} 
+\index{allocator.c@{allocator.c}!worst\_fit@{worst\_fit}}
+\index{worst\_fit@{worst\_fit}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{worst\_fit()}{worst\_fit()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmem__block}{mem\+\_\+block}}$\ast$ worst\+\_\+fit (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+Finds the block that can be used as or split to hold the new block Uses same logic as Best-\/\+Fit memory allocation (valid block with most extra space is chosen). 
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ full size of the block which is allocated (including header). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the header of the block that have enough free space, or N\+U\+LL if not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{allocator_8c_a22a50f56d0ca25cf15ae958e096a9776}\label{allocator_8c_a22a50f56d0ca25cf15ae958e096a9776}} 
+\index{allocator.c@{allocator.c}!write\_memory@{write\_memory}}
+\index{write\_memory@{write\_memory}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{write\_memory()}{write\_memory()}}
+{\footnotesize\ttfamily void write\+\_\+memory (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+Prints out the current memory state, including both the regions and blocks. Entries are printed in order, so there is an implied link from the topmost entry to the next, and so on. 
+\begin{DoxyParams}{Parameters}
+{\em fp} & -\/ output stream to print the memory state to. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{allocator_8c_a17861f56ed66fb6e128e6dd6448d5e6d}\label{allocator_8c_a17861f56ed66fb6e128e6dd6448d5e6d}} 
+\index{allocator.c@{allocator.c}!write\_pointer@{write\_pointer}}
+\index{write\_pointer@{write\_pointer}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{write\_pointer()}{write\_pointer()}}
+{\footnotesize\ttfamily void write\+\_\+pointer (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+Prints the pointer number as the text output. Recreates \textquotesingle{}\%p\textquotesingle{} specifier of the printf. 
+\begin{DoxyParams}{Parameters}
+{\em fp} & -\/ output stream to print the pointer to. \\
+\hline
+{\em num} & -\/ pointer to print. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{allocator_8c_a04e781f71c64ac20ac2fe49e293b5999}\label{allocator_8c_a04e781f71c64ac20ac2fe49e293b5999}} 
+\index{allocator.c@{allocator.c}!write\_unsigned@{write\_unsigned}}
+\index{write\_unsigned@{write\_unsigned}!allocator.c@{allocator.c}}
+\doxysubsubsection{\texorpdfstring{write\_unsigned()}{write\_unsigned()}}
+{\footnotesize\ttfamily void write\+\_\+unsigned (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{size\+\_\+t}]{num }\end{DoxyParamCaption})}
+
+Prints the size\+\_\+t typed number as the text output. Recreates \textquotesingle{}\%zu\textquotesingle{} specifier of the printf. 
+\begin{DoxyParams}{Parameters}
+{\em fp} & -\/ output stream to print the number to. \\
+\hline
+{\em num} & -\/ number to print. \\
+\hline
+\end{DoxyParams}

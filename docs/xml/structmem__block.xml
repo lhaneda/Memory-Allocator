@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="structmem__block" kind="struct" language="C++" prot="public">
+    <compoundname>mem_block</compoundname>
+    <includes refid="allocator_8h" local="no">allocator.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmem__block_1ad42de1b76cc0aa74440d25db29ac647d" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long mem_block::alloc_id</definition>
+        <argsstring></argsstring>
+        <name>alloc_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Each allocation is given a unique ID number. If an allocation is split in two, then the resulting new block will be given a new ID. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="36" column="19" bodyfile="allocator.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmem__block_1a4b0bf81628ebd136cc6d4a33c2dc1fcf" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char mem_block::name[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The name of this memory block. If the user doesn&apos;t specify a name for the block, it should be auto-generated based on the allocation ID. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="42" column="10" bodyfile="allocator.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mem_block::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Size of the memory region </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="45" column="12" bodyfile="allocator.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmem__block_1a9584a3091a545d69554c90af09a537f9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mem_block::usage</definition>
+        <argsstring></argsstring>
+        <name>usage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Space used; if usage == 0, then the block has been freed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="48" column="12" bodyfile="allocator.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmem__block_1a13488653e52b16c20a2236a540e2f0cc" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structmem__block" kindref="compound">mem_block</ref> *</type>
+        <definition>struct mem_block* mem_block::region_start</definition>
+        <argsstring></argsstring>
+        <name>region_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to the start of the mapped memory region. This simplifies the process of finding where memory mappings begin. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="54" column="20" bodyfile="allocator.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmem__block_1a9363cab5adbbfa3e4655a226262be3f9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mem_block::region_size</definition>
+        <argsstring></argsstring>
+        <name>region_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If this block is the beginning of a mapped memory region, the region_size member indicates the size of the mapping. In subsequent (split) blocks, this is undefined. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="61" column="12" bodyfile="allocator.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmem__block_1a6bc667eb00ed1bb2d18b4074a69d7cf4" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structmem__block" kindref="compound">mem_block</ref> *</type>
+        <definition>struct mem_block* mem_block::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Next block in the chain </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="allocator.h" line="64" column="20" bodyfile="allocator.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Defines metadata structure for both memory &apos;regions&apos; and &apos;blocks.&apos; This structure is prefixed before each allocation&apos;s data area. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>mem_block</label>
+        <link refid="structmem__block"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>region_start</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="allocator.h" line="31" column="16" bodyfile="allocator.h" bodystart="31" bodyend="65"/>
+    <listofallmembers>
+      <member refid="structmem__block_1ad42de1b76cc0aa74440d25db29ac647d" prot="public" virt="non-virtual"><scope>mem_block</scope><name>alloc_id</name></member>
+      <member refid="structmem__block_1a4b0bf81628ebd136cc6d4a33c2dc1fcf" prot="public" virt="non-virtual"><scope>mem_block</scope><name>name</name></member>
+      <member refid="structmem__block_1a6bc667eb00ed1bb2d18b4074a69d7cf4" prot="public" virt="non-virtual"><scope>mem_block</scope><name>next</name></member>
+      <member refid="structmem__block_1a9363cab5adbbfa3e4655a226262be3f9" prot="public" virt="non-virtual"><scope>mem_block</scope><name>region_size</name></member>
+      <member refid="structmem__block_1a13488653e52b16c20a2236a540e2f0cc" prot="public" virt="non-virtual"><scope>mem_block</scope><name>region_start</name></member>
+      <member refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" prot="public" virt="non-virtual"><scope>mem_block</scope><name>size</name></member>
+      <member refid="structmem__block_1a9584a3091a545d69554c90af09a537f9" prot="public" virt="non-virtual"><scope>mem_block</scope><name>usage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

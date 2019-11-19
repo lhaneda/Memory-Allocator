@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.16">
+  <compound refid="structmem__block" kind="struct"><name>mem_block</name>
+    <member refid="structmem__block_1ad42de1b76cc0aa74440d25db29ac647d" kind="variable"><name>alloc_id</name></member>
+    <member refid="structmem__block_1a4b0bf81628ebd136cc6d4a33c2dc1fcf" kind="variable"><name>name</name></member>
+    <member refid="structmem__block_1a5ff4ee5dcd970bbc4951eb108c5eec4b" kind="variable"><name>size</name></member>
+    <member refid="structmem__block_1a9584a3091a545d69554c90af09a537f9" kind="variable"><name>usage</name></member>
+    <member refid="structmem__block_1a13488653e52b16c20a2236a540e2f0cc" kind="variable"><name>region_start</name></member>
+    <member refid="structmem__block_1a9363cab5adbbfa3e4655a226262be3f9" kind="variable"><name>region_size</name></member>
+    <member refid="structmem__block_1a6bc667eb00ed1bb2d18b4074a69d7cf4" kind="variable"><name>next</name></member>
+  </compound>
+  <compound refid="allocator_8c" kind="file"><name>allocator.c</name>
+    <member refid="allocator_8c_1a17861f56ed66fb6e128e6dd6448d5e6d" kind="function"><name>write_pointer</name></member>
+    <member refid="allocator_8c_1a04e781f71c64ac20ac2fe49e293b5999" kind="function"><name>write_unsigned</name></member>
+    <member refid="allocator_8c_1a22a50f56d0ca25cf15ae958e096a9776" kind="function"><name>write_memory</name></member>
+    <member refid="allocator_8c_1a16e4f54f08fa2ef1574b413d64a94d44" kind="function"><name>print_memory</name></member>
+    <member refid="allocator_8c_1a149e8f74b9bbf0cb7ea37bf583e53482" kind="function"><name>first_fit</name></member>
+    <member refid="allocator_8c_1aaaadbfd855728c6a6d0b62acb8b8cd54" kind="function"><name>best_fit</name></member>
+    <member refid="allocator_8c_1ae71009595b7d4f5746e742a7707c8935" kind="function"><name>worst_fit</name></member>
+    <member refid="allocator_8c_1a512132f6d325316860cc6ac6bf0a366c" kind="function"><name>reuse</name></member>
+    <member refid="allocator_8c_1aaee87550bee6efe7ccc95c0c9b5e8c7a" kind="function"><name>expand_heap</name></member>
+    <member refid="allocator_8c_1ab2b5b629f85cbc720a47bd7f0c658ceb" kind="function"><name>malloc_unsafe</name></member>
+    <member refid="allocator_8c_1a7ac38fce3243a7dcf448301ee9ffd392" kind="function"><name>malloc</name></member>
+    <member refid="allocator_8c_1abea17750c4391c1e6a8d512bc73ec6eb" kind="function"><name>malloc_name_unsafe</name></member>
+    <member refid="allocator_8c_1aec0d19cf0c75e35fef6e0c1248dc781e" kind="function"><name>malloc_name</name></member>
+    <member refid="allocator_8c_1af18a93fc4ddd62a18abeb9af2cf64523" kind="function"><name>free_unsafe</name></member>
+    <member refid="allocator_8c_1afbedc913aa4651b3c3b4b3aecd9b4711" kind="function"><name>free</name></member>
+    <member refid="allocator_8c_1a62b7798461bd461da64c5f9d35feddf7" kind="function"><name>calloc</name></member>
+    <member refid="allocator_8c_1aca9a8e56fed508bfcebeae1ad1e4c54a" kind="function"><name>realloc_unsafe</name></member>
+    <member refid="allocator_8c_1a1a6b5e8d2f1c37e5b43e4345586075be" kind="function"><name>realloc</name></member>
+  </compound>
+  <compound refid="allocator_8h" kind="file"><name>allocator.h</name>
+    <member refid="allocator_8h_1af53cbb9b42037c8fdbbd933b88633b84" kind="variable"><name>g_head</name></member>
+    <member refid="allocator_8h_1a3573b9ffe57e009ac9af92b356d9a440" kind="variable"><name>g_allocations</name></member>
+    <member refid="allocator_8h_1a6067dc93cfee72cb62500c25f151b4ba" kind="variable"><name>g_heap_lock</name></member>
+    <member refid="allocator_8h_1a16e4f54f08fa2ef1574b413d64a94d44" kind="function"><name>print_memory</name></member>
+    <member refid="allocator_8h_1a22a50f56d0ca25cf15ae958e096a9776" kind="function"><name>write_memory</name></member>
+    <member refid="allocator_8h_1a7ac38fce3243a7dcf448301ee9ffd392" kind="function"><name>malloc</name></member>
+    <member refid="allocator_8h_1afbedc913aa4651b3c3b4b3aecd9b4711" kind="function"><name>free</name></member>
+    <member refid="allocator_8h_1a62b7798461bd461da64c5f9d35feddf7" kind="function"><name>calloc</name></member>
+    <member refid="allocator_8h_1a1a6b5e8d2f1c37e5b43e4345586075be" kind="function"><name>realloc</name></member>
+  </compound>
+  <compound refid="debug_8h" kind="file"><name>debug.h</name>
+    <member refid="debug_8h_1ad72dbcf6d0153db1b8d8a58001feed83" kind="define"><name>DEBUG</name></member>
+    <member refid="debug_8h_1a792f9eb6a62648607f47b22644ad9707" kind="define"><name>DEBUG_COLOR</name></member>
+    <member refid="debug_8h_1ad86358bf19927183dd7b4ae215a29731" kind="define"><name>COLOR_RED</name></member>
+    <member refid="debug_8h_1a23c70d699a5a775bc2e1ebeb8603f630" kind="define"><name>COLOR_BLUE</name></member>
+    <member refid="debug_8h_1a17f760256046df23dd0ab46602f04d02" kind="define"><name>COLOR_RESET</name></member>
+    <member refid="debug_8h_1ac60a33fb6244dfed75a5aaab504b8968" kind="define"><name>LOGP</name></member>
+    <member refid="debug_8h_1a388edf12256bf73c3a8ee9734c3bd841" kind="define"><name>LOG</name></member>
+  </compound>
+  <compound refid="README_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

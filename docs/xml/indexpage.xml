@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>Project 3: Memory Allocator</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>See: <ulink url="https://www.cs.usfca.edu/~mmalensek/cs326/assignments/project-3.html">https://www.cs.usfca.edu/~mmalensek/cs326/assignments/project-3.html</ulink></para>
+<para>To compile and use the allocator:</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">make</highlight></codeline>
+<codeline><highlight class="normal">LD_PRELOAD=$(pwd)/allocator.so<sp/>ls<sp/>/</highlight></codeline>
+</programlisting></para>
+<para>(in this example, the command <computeroutput>ls /</computeroutput> is run with the custom memory allocator instead of the default).</para>
+<sect1 id="index_1autotoc_md1">
+<title>Testing</title>
+<para>To execute the test cases, use <computeroutput>make test</computeroutput>. To pull in updated test cases, run <computeroutput>make testupdate</computeroutput>. You can also run a specific test case instead of all of them:</para>
+<para><programlisting><codeline><highlight class="normal">#<sp/>Run<sp/>all<sp/>test<sp/>cases:</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>test</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Run<sp/>a<sp/>specific<sp/>test<sp/>case:</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>test<sp/>run=4</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Run<sp/>a<sp/>few<sp/>specific<sp/>test<sp/>cases<sp/>(4,<sp/>8,<sp/>and<sp/>12<sp/>in<sp/>this<sp/>case):</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>test<sp/>run=&apos;4<sp/>8<sp/>12&apos;</highlight></codeline>
+</programlisting> </para>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

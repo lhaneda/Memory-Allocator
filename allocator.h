@@ -7,9 +7,14 @@
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
 
+#include <stddef.h>
+#include <pthread.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 /* -- Helper functions -- */
 void print_memory(void);
-void *reuse(size_t size);
+void write_memory(FILE *fp);
 
 /* -- C Memory API functions -- */
 void *malloc(size_t size);
@@ -61,5 +66,7 @@ struct mem_block {
 
 static struct mem_block *g_head = NULL; /*!< Start (head) of our linked list */
 static unsigned long g_allocations = 0; /*!< Allocation counter */
+static pthread_mutex_t g_heap_lock = 
+        PTHREAD_MUTEX_INITIALIZER; /*!< Mutex that protects memory operations*/
 
 #endif

@@ -16,7 +16,6 @@ clean:
 	rm -f $(lib) $(obj)
 	rm -rf docs
 
-
 # Tests --
 
 test: $(lib) ./tests/run_tests

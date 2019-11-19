@@ -1,0 +1,26 @@
+See\+: \href{https://www.cs.usfca.edu/~mmalensek/cs326/assignments/project-3.html}{\texttt{ https\+://www.\+cs.\+usfca.\+edu/$\sim$mmalensek/cs326/assignments/project-\/3.\+html}}
+
+To compile and use the allocator\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make}
+\DoxyCodeLine{LD\_PRELOAD=\$(pwd)/allocator.so ls /}
+\end{DoxyCode}
+
+
+(in this example, the command {\ttfamily ls /} is run with the custom memory allocator instead of the default).\hypertarget{index_autotoc_md1}{}\doxysection{Testing}\label{index_autotoc_md1}
+To execute the test cases, use {\ttfamily make test}. To pull in updated test cases, run {\ttfamily make testupdate}. You can also run a specific test case instead of all of them\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Run all test cases:}
+\DoxyCodeLine{make test}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Run a specific test case:}
+\DoxyCodeLine{make test run=4}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Run a few specific test cases (4, 8, and 12 in this case):}
+\DoxyCodeLine{make test run='4 8 12'}
+\end{DoxyCode}
+ 

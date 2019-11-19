@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Project<sp/>3:<sp/>Memory<sp/>Allocator</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">See:<sp/>https://www.cs.usfca.edu/~mmalensek/cs326/assignments/project-3.html<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>compile<sp/>and<sp/>use<sp/>the<sp/>allocator:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">make</highlight></codeline>
+<codeline><highlight class="normal">LD_PRELOAD=$(pwd)/allocator.so<sp/>ls<sp/>/</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">(in<sp/>this<sp/>example,<sp/>the<sp/>command<sp/>`ls<sp/>/`<sp/>is<sp/>run<sp/>with<sp/>the<sp/>custom<sp/>memory<sp/>allocator<sp/>instead<sp/>of<sp/>the<sp/>default).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Testing</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>execute<sp/>the<sp/>test<sp/>cases,<sp/>use<sp/>`make<sp/>test`.<sp/>To<sp/>pull<sp/>in<sp/>updated<sp/>test<sp/>cases,<sp/>run<sp/>`make<sp/>testupdate`.<sp/>You<sp/>can<sp/>also<sp/>run<sp/>a<sp/>specific<sp/>test<sp/>case<sp/>instead<sp/>of<sp/>all<sp/>of<sp/>them:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Run<sp/>all<sp/>test<sp/>cases:</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>test</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Run<sp/>a<sp/>specific<sp/>test<sp/>case:</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>test<sp/>run=4</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Run<sp/>a<sp/>few<sp/>specific<sp/>test<sp/>cases<sp/>(4,<sp/>8,<sp/>and<sp/>12<sp/>in<sp/>this<sp/>case):</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>test<sp/>run=&apos;4<sp/>8<sp/>12&apos;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>
