@@ -31,7 +31,7 @@
 void write_pointer(FILE *fp, void *ptr)
 {
     int i, printed = 0;
-    uint64_t  ptr_num;
+    uint64_t ptr_num;
 
     /* If the pointer is NULL, print it */
     ptr_num = (uint64_t ) ptr;
