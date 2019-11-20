@@ -2,7 +2,7 @@
 
 See: https://www.cs.usfca.edu/~mmalensek/cs326/assignments/project-3.html 
 
-This is custom memory allocator which contains best fit, worst fit, and first fit algorithms. It contains functions and their respective thread safe versions which are accessed when the the critical section is being entered. There are functions that replace the %p and %zu in order to convert pointer and size_t items to text outputs. Heap expansion is done in a seperate function from malloc.   
+This is custom memory allocator which contains best fit, worst fit, and first fit algorithms. It contains functions and their respective thread safe versions which are accessed when the the critical section is being entered. There are functions that replace the %p and %zu in order to convert pointer and size_t items to text outputs. Heap expansion is done in a seperate function from malloc. Included in this repository is a .png file showing the blocks as part of a linkedlist. 
 
 To compile and use the allocator:
 
