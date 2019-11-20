@@ -20,7 +20,7 @@ sudo pacman -Sy graphviz
 cd tests/viz/
 ./visualize-mem.bash mem.txt output.png
 ## Testing
-
+```
 To execute the test cases, use `make test`. To pull in updated test cases, run `make testupdate`. You can also run a specific test case instead of all of them:
 
 ```
