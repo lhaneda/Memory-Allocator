@@ -32,7 +32,8 @@ make test run=4
 make test run='4 8 12'
 ```
 
-## An Interesting Chain of Allocations done when "LD_PRELOAD=$(pwd)/allocator.so ls" is entered
+## An Interesting Chain of Allocations done 
+When 'LD_PRELOAD=$(pwd)/allocator.so ls' is entered, here is a interesting chain of allocations and unmapping 
 ```
 allocator.c:400:malloc(): ALLOCATING SIZE 5
 allocator.c:317:expand_heap(): ALLOCATED NEW REGION AT 0x7fbb48ea1000
